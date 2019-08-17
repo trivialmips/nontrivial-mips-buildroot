@@ -1,0 +1,4 @@
+config BR2_PACKAGE_TRIVIAL_DASHBOARD
+	bool "trivial-dashboard"
+	help
+		TRIVIAL_DASHBOARD

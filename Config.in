@@ -1,0 +1,2 @@
+source "$BR2_EXTERNAL_NONTRIVIALMIPS_PATH/package/qtermwidget/Config.in"
+source "$BR2_EXTERNAL_NONTRIVIALMIPS_PATH/package/trivial-dashboard/Config.in"

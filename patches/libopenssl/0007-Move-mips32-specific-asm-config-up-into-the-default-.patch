@@ -1,0 +1,26 @@
+From 10a781b4ee80c990914da03f7538aa08e865a81e Mon Sep 17 00:00:00 2001
+From: Liu Xiaoyi <circuitcoder0@gmail.com>
+Date: Sun, 11 Aug 2019 19:37:02 +0800
+Subject: [PATCH 7/7] Move mips32 specific asm config up into the default
+ section
+
+---
+ Configurations/00-base-templates.conf | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Configurations/00-base-templates.conf b/Configurations/00-base-templates.conf
+index 4c7df105af..7d1b94c19f 100644
+--- a/Configurations/00-base-templates.conf
++++ b/Configurations/00-base-templates.conf
+@@ -21,7 +21,7 @@ my %targets=(
+ 	bn_asm_src	=> "bn_asm.c",
+ 	ec_asm_src	=> "",
+ 	des_asm_src	=> "des_enc.c fcrypt_b.c",
+-	aes_asm_src	=> "aes_core.c aes_cbc.c",
++	aes_asm_src     => "aes_cbc.c aes-mips.c",
+ 	bf_asm_src	=> "bf_enc.c",
+ 	md5_asm_src	=> "",
+ 	cast_asm_src	=> "c_enc.c",
+-- 
+2.21.0
+

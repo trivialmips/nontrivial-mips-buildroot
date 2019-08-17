@@ -1,0 +1,25 @@
+From 119429baf079313f84a3b702e0a7fd0696413a98 Mon Sep 17 00:00:00 2001
+From: Yuhao Zhou <miskcoo@gmail.com>
+Date: Sun, 11 Aug 2019 11:41:26 +0800
+Subject: [PATCH 4/7] Fix typo.
+
+---
+ crypto/aes/aes-mips.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/crypto/aes/aes-mips.c b/crypto/aes/aes-mips.c
+index 9ca4dbcb4d..0632d0d09f 100644
+--- a/crypto/aes/aes-mips.c
++++ b/crypto/aes/aes-mips.c
+@@ -11,7 +11,7 @@
+                :                                                               \
+                : "r"(variable));
+ 
+-#define read_aes_registe_bigendianr(addr, variable)                            \
++#define read_aes_register_bigendian(addr, variable)                            \
+   asm volatile(".byte " #addr "\n"                                             \
+                ".byte 0x81\n"                                                  \
+                ".byte 0b00000000+(%0-0x100)\n"                                 \
+-- 
+2.21.0
+

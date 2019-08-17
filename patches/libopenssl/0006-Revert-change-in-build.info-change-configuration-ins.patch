@@ -1,0 +1,39 @@
+From e4fc1bd56922ff58d6f40f3ec91fb36249432761 Mon Sep 17 00:00:00 2001
+From: Jiajie Chen <noc@jiegec.ac.cn>
+Date: Sun, 11 Aug 2019 19:07:51 +0800
+Subject: [PATCH 6/7] Revert change in build.info, change configuration instead
+
+---
+ Configurations/00-base-templates.conf | 2 +-
+ crypto/aes/build.info                 | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Configurations/00-base-templates.conf b/Configurations/00-base-templates.conf
+index 5fd995cb33..4c7df105af 100644
+--- a/Configurations/00-base-templates.conf
++++ b/Configurations/00-base-templates.conf
+@@ -276,7 +276,7 @@ my %targets=(
+     mips32_asm => {
+ 	template	=> 1,
+ 	bn_asm_src      => "bn-mips.S mips-mont.S",
+-	aes_asm_src     => "aes_cbc.c aes-mips.S",
++	aes_asm_src     => "aes_cbc.c aes-mips.c",
+ 	sha1_asm_src    => "sha1-mips.S sha256-mips.S",
+     },
+     mips64_asm => {
+diff --git a/crypto/aes/build.info b/crypto/aes/build.info
+index ba62651114..0f04863640 100644
+--- a/crypto/aes/build.info
++++ b/crypto/aes/build.info
+@@ -1,7 +1,7 @@
+ LIBS=../../libcrypto
+ SOURCE[../../libcrypto]=\
+         aes_misc.c aes_ecb.c aes_cfb.c aes_ofb.c \
+-        aes_ige.c aes_wrap.c aes-mips.c
++        aes_ige.c aes_wrap.c {- $target{aes_asm_src} -}
+ 
+ GENERATE[aes-ia64.s]=asm/aes-ia64.S
+ 
+-- 
+2.21.0
+

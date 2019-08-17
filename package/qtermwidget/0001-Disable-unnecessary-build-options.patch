@@ -1,0 +1,98 @@
+From 740a8b7ce8f036933e8e8f4f4a42b8254b4cfb44 Mon Sep 17 00:00:00 2001
+From: Liu Xiaoyi <circuitcoder0@gmail.com>
+Date: Sat, 17 Aug 2019 11:37:43 +0800
+Subject: [PATCH] Disable unnecessary build options
+
+---
+ CMakeLists.txt | 56 +++++++++++++++++++++++++-------------------------
+ 1 file changed, 28 insertions(+), 28 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 57a8c7d..04b21de 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -35,17 +35,17 @@ set(QT_MINIMUM_VERSION "5.7.1")
+ set(LXQTBT_MINIMUM_VERSION "0.6.0")
+ 
+ find_package(Qt5Widgets "${QT_MINIMUM_VERSION}" REQUIRED)
+-find_package(Qt5LinguistTools "${QT_MINIMUM_VERSION}" REQUIRED)
+-find_package(lxqt-build-tools ${LXQTBT_MINIMUM_VERSION} REQUIRED)
++# find_package(Qt5LinguistTools "${QT_MINIMUM_VERSION}" REQUIRED)
++# find_package(lxqt-build-tools ${LXQTBT_MINIMUM_VERSION} REQUIRED)
+ 
+ if(USE_UTF8PROC)
+     find_package(Utf8Proc REQUIRED)
+ endif()
+ 
+-include(LXQtPreventInSourceBuilds)
+-include(LXQtTranslateTs)
+-include(LXQtCompilerSettings NO_POLICY_SCOPE)
+-include(LXQtCreatePkgConfigFile)
++# include(LXQtPreventInSourceBuilds)
++# include(LXQtTranslateTs)
++# include(LXQtCompilerSettings NO_POLICY_SCOPE)
++# include(LXQtCreatePkgConfigFile)
+ 
+ if(APPLE)
+     if(CMAKE_VERSION VERSION_GREATER 3.9)
+@@ -131,17 +131,17 @@ qt5_wrap_cpp(MOCS ${HDRS})
+ qt5_wrap_ui(UI_SRCS ${UI})
+ set(PKG_CONFIG_REQ "Qt5Widgets")
+ 
+-lxqt_translate_ts(QTERMWIDGET_QM
+-    TRANSLATION_DIR "lib/translations"
+-    UPDATE_TRANSLATIONS
+-        ${UPDATE_TRANSLATIONS}
+-    SOURCES
+-        ${SRCS} ${HDRS} ${UI}
+-    INSTALL_DIR
+-        ${TRANSLATIONS_DIR}
+-    COMPONENT
+-        Runtime
+-)
++# lxqt_translate_ts(QTERMWIDGET_QM
++#     TRANSLATION_DIR "lib/translations"
++#     UPDATE_TRANSLATIONS
++#         ${UPDATE_TRANSLATIONS}
++#     SOURCES
++#         ${SRCS} ${HDRS} ${UI}
++#     INSTALL_DIR
++#         ${TRANSLATIONS_DIR}
++#     COMPONENT
++#         Runtime
++# )
+ 
+ add_library(${QTERMWIDGET_LIBRARY_NAME} SHARED ${SRCS} ${MOCS} ${UI_SRCS} ${QTERMWIDGET_QM})
+ target_link_libraries(${QTERMWIDGET_LIBRARY_NAME} Qt5::Widgets)
+@@ -264,17 +264,17 @@ install(DIRECTORY
+     FILES_MATCHING PATTERN "*.*schem*"
+ )
+ 
+-lxqt_create_pkgconfig_file(
+-    PACKAGE_NAME ${QTERMWIDGET_LIBRARY_NAME}
+-    DESCRIPTIVE_NAME ${QTERMWIDGET_LIBRARY_NAME}
+-    DESCRIPTION "QTermWidget library for Qt ${QTERMWIDGET_VERSION_MAJOR}.x"
+-    INCLUDEDIRS ${QTERMWIDGET_LIBRARY_NAME}
+-    LIBS ${QTERMWIDGET_LIBRARY_NAME}
+-    REQUIRES ${PKG_CONFIG_REQ}
+-    VERSION ${QTERMWIDGET_VERSION}
+-    INSTALL
+-    COMPONENT Devel
+-)
++# lxqt_create_pkgconfig_file(
++#     PACKAGE_NAME ${QTERMWIDGET_LIBRARY_NAME}
++#     DESCRIPTIVE_NAME ${QTERMWIDGET_LIBRARY_NAME}
++#     DESCRIPTION "QTermWidget library for Qt ${QTERMWIDGET_VERSION_MAJOR}.x"
++#     INCLUDEDIRS ${QTERMWIDGET_LIBRARY_NAME}
++#     LIBS ${QTERMWIDGET_LIBRARY_NAME}
++#     REQUIRES ${PKG_CONFIG_REQ}
++#     VERSION ${QTERMWIDGET_VERSION}
++#     INSTALL
++#     COMPONENT Devel
++# )
+ 
+ configure_file(
+     "${PROJECT_SOURCE_DIR}/cmake/${QTERMWIDGET_LIBRARY_NAME}-config.cmake.in"
+-- 
+2.21.0
+

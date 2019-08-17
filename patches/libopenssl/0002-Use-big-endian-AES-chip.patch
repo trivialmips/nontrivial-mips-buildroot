@@ -1,0 +1,49 @@
+From 2b39be84e9e8bec12ec95a8d8f7aa6f7a58140b4 Mon Sep 17 00:00:00 2001
+From: Yuhao Zhou <miskcoo@gmail.com>
+Date: Sun, 11 Aug 2019 11:27:35 +0800
+Subject: [PATCH 2/7] Use big-endian AES chip.
+
+---
+ crypto/aes/aes-mips.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/crypto/aes/aes-mips.c b/crypto/aes/aes-mips.c
+index 534f52a104..b57ba84c75 100644
+--- a/crypto/aes/aes-mips.c
++++ b/crypto/aes/aes-mips.c
+@@ -5,7 +5,7 @@
+ 
+ #define write_aes_register(addr, variable)                                     \
+   asm volatile(".byte " #addr "\n"                                             \
+-               ".byte 0x01\n"                                                  \
++               ".byte 0x81\n"                                                  \
+                ".byte 0b10000000+(%0-0x100)\n"                                 \
+                ".byte 0b01001000\n"                                            \
+                :                                                               \
+@@ -13,13 +13,13 @@
+ 
+ #define read_aes_register(addr, variable)                                      \
+   asm volatile(".byte " #addr "\n"                                             \
+-               ".byte 0x01\n"                                                  \
++               ".byte 0x81\n"                                                  \
+                ".byte 0b00000000+(%0-0x100)\n"                                 \
+                ".byte 0b01001000\n"                                            \
+                : "=r"(variable));
+ 
+-#define GETU32(p) ntohl(*((u32 *)(p)))
+-#define SETU32(p, v) (*((u32 *)(p))) = htonl((v))
++#define GETU32(p) (*((u32 *)(p)))
++#define SETU32(p, v) (*((u32 *)(p))) = ((v))
+ 
+ // encrypt(type=1), decrypt(type=0)
+ int AES_set_key(const unsigned char *userKey, const int bits, int type) {
+@@ -105,4 +105,4 @@ void AES_encrypt(const unsigned char *in, unsigned char *out,
+ void AES_decrypt(const unsigned char *in, unsigned char *out,
+                  const AES_KEY *key) {
+   AES_encrypt(in, out, key);
+-}
+\ No newline at end of file
++}
+-- 
+2.21.0
+
